@@ -13,6 +13,14 @@ Created on Fri Nov 11 10:41:06 2016
 import os, time
 import pandas as pd
 
+# strip_quotes strips any quotations from the specified directory
+# makes it easier for the user to copy/paste folder path
+def strip_quotes(string):
+    for char in ['\"', '\'']:
+        if char in string:
+            string = string.replace(char, '')
+    return string
+
 # rep_string reformats entered string to accept file endings with and without '.'
 def rep_string(string):
     for char in [' ', '.']:
@@ -40,7 +48,8 @@ def get_files(path):
                         yield fname, fullpath, file_created, file_last_modified, ftype   
 
                         
-rootDir = input('Enter root directory: ')
+rootDir = strip_quotes(input('Enter root directory: '))
+
 print('Enter file types to search for (if multiple, separate with comma)')
 print('Example: txt, pdf, docx, mp3')
 filetypes_str = input ('To search all file types, hit [Enter]:')
